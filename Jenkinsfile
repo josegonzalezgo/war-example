@@ -19,6 +19,6 @@ pipeline {
 				bat 'docker build -t ' + params.DEPLOY_ENVIRONMENT + ' .'
 				bat 'cd ' + env.ENVS_DIR + ' && docker compose down ' + params.DEPLOY_ENVIRONMENT + ' && docker compose up -d ' + params.DEPLOY_ENVIRONMENT
 			}
-		}/*
+		}*/
 	}
 }
