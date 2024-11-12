@@ -21,7 +21,7 @@ pipeline {
 				}
 			}
 			steps {
-				bat 'copy target\\ROOT.war C:\\Users\\virtual\\ambientes\\' + params.DEPLOY_ENVIRONMENT + '\\apache-tomcat-9.0.96\\webapps\\'
+				bat 'copy target\\ROOT.war D:\\devenv\\CURSOJENKINS\\ambientes\\' + params.DEPLOY_ENVIRONMENT + '\\apache-tomcat-9.0.96\\webapps\\'
 			}
 		}
 	}
