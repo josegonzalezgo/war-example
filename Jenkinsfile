@@ -5,7 +5,7 @@ pipeline {
 	}
 
 	parameters {
-		choice(name: 'DEPLOY_ENVIRONMENT', choices: ['tomcat1', 'tomcat2', 'tomcat3'], description: 'Ambiente de despliegue')
+		choice(name: 'DEPLOY_ENVIRONMENT', choices: ['ninguno', 'tomcat1', 'tomcat2'], description: 'Ambiente de despliegue')
 	}
 
 	stages {
@@ -13,12 +13,16 @@ pipeline {
 			steps {
 				bat 'mvn -B -q -P docker-build clean package'
 			}
-		}/*
+		}
 		stage('Deploy') {
-			steps {
-				bat 'docker build -t ' + params.DEPLOY_ENVIRONMENT + ' .'
-				bat 'cd ' + env.ENVS_DIR + ' && docker compose down ' + params.DEPLOY_ENVIRONMENT + ' && docker compose up -d ' + params.DEPLOY_ENVIRONMENT
+			when {
+				not {
+					equals expected: 'ninguno', actual: params.DEPLOY_ENVIRONMENT
+				}
 			}
-		}*/
+			steps {
+				bat 'copy target\\ROOT.war C:\\Users\\virtual\\ambientes\\' + params.DEPLOY_ENVIRONMENT + '\\apache-tomcat-9.0.96\\webapps\\'
+			}
+		}
 	}
 }
